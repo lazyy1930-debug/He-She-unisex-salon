@@ -16,3 +16,31 @@ html {
 body {
   @apply bg-[#0a0a0a] text-gray-200 font-sans antialiased;
 }
+
+@keyframes mesh-blob-1 {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(40px, -60px) scale(1.1); }
+  66% { transform: translate(-30px, 30px) scale(0.9); }
+}
+
+@keyframes mesh-blob-2 {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(-40px, 60px) scale(1.15); }
+  66% { transform: translate(30px, -30px) scale(0.85); }
+}
+
+@keyframes particle-float {
+  0% { transform: translateY(10vh) scale(0); opacity: 0; }
+  10% { opacity: 0.8; transform: translateY(0vh) scale(1); }
+  90% { opacity: 0.8; transform: translateY(-70vh) scale(1); }
+  100% { transform: translateY(-100vh) scale(0); opacity: 0; }
+}
+
+.animate-blob1 { animation: mesh-blob-1 15s ease-in-out infinite; }
+.animate-blob2 { animation: mesh-blob-2 20s ease-in-out infinite; }
+.animate-blob3 { animation: mesh-blob-1 18s ease-in-out infinite reverse; }
+
+.animate-particle-1 { animation: particle-float 12s ease-in-out infinite; }
+.animate-particle-2 { animation: particle-float 18s ease-in-out infinite 2s; }
+.animate-particle-3 { animation: particle-float 15s ease-in-out infinite 4s; }
+.animate-particle-4 { animation: particle-float 20s ease-in-out infinite 1s; }

@@ -19,6 +19,15 @@ import {
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (window.innerWidth < 768) return;
+    const { clientX, clientY } = e;
+    const x = (clientX / window.innerWidth - 0.5) * 30;
+    const y = (clientY / window.innerHeight - 0.5) * 30;
+    setMousePos({ x, y });
+  };
 
   const whatsappNumber = "917975446634";
   const whatsappMessage = "Hi, I would like to book an appointment at He & She Family Unisex Salon.";
@@ -159,19 +168,45 @@ export default function App() {
           
           <div className="lg:col-span-7 flex flex-col gap-6">
             {/* Hero Section */}
-            <section id="home" className="flex-1 min-h-[400px] sm:min-h-[500px] bg-gradient-to-br from-[#111] to-[#050505] border border-[#D4AF37]/10 p-8 sm:p-10 rounded-2xl relative overflow-hidden flex flex-col justify-end group">
-              <div className="absolute inset-0">
+            <section 
+              id="home" 
+              onMouseMove={handleMouseMove}
+              onMouseLeave={() => setMousePos({ x: 0, y: 0 })}
+              className="flex-1 min-h-[400px] sm:min-h-[500px] bg-black border border-[#D4AF37]/10 p-8 sm:p-10 rounded-2xl relative overflow-hidden flex flex-col justify-end group shadow-[0_8px_30px_rgb(0,0,0,0.4)]"
+            >
+              {/* Parallax Background */}
+              <div 
+                className="absolute inset-[-5%] w-[110%] h-[110%] transition-transform duration-500 ease-out pointer-events-none"
+                style={{ transform: `translate(${-mousePos.x}px, ${-mousePos.y}px)` }}
+              >
                 <img 
                   src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&w=1920&q=80" 
                   alt="Salon Interior" 
-                  className="w-full h-full object-cover opacity-20 mix-blend-overlay group-hover:opacity-30 transition-opacity duration-700"
+                  className="w-full h-full object-cover opacity-15 mix-blend-screen group-hover:opacity-20 transition-opacity duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-90"></div>
-                
-                {/* Decorative Icon */}
-                <div className="absolute top-0 right-0 p-8 opacity-10 hidden sm:block">
-                  <svg width="200" height="200" viewBox="0 0 24 24" fill="#D4AF37"><path d="M17 5h-1V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v1H7c-1.1 0-2 .9-2 2v1l2 3h10l2-3V7c0-1.1-.9-2-2-2zM9 4h6v1H9V4zm11 8H4v7c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-7z"/></svg>
+
+                {/* Animated 3D Background Mesh */}
+                <div className="absolute inset-0 overflow-hidden mix-blend-screen opacity-70">
+                  <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#D4AF37]/20 rounded-full blur-[80px] animate-blob1" />
+                  <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#aa8c2c]/15 rounded-full blur-[100px] animate-blob2" />
+                  <div className="absolute top-[30%] right-[30%] w-[40%] h-[40%] bg-amber-600/10 rounded-full blur-[60px] animate-blob3" />
+                  
+                  {/* Floating Particles */}
+                  <div className="absolute inset-0">
+                    <div className="absolute left-[15%] bottom-0 w-1 h-1 bg-[#D4AF37] rounded-full blur-[1px] animate-particle-1" />
+                    <div className="absolute left-[35%] bottom-0 w-2 h-2 bg-[#D4AF37]/80 rounded-full blur-[2px] animate-particle-2" />
+                    <div className="absolute left-[65%] bottom-0 w-1.5 h-1.5 bg-white/50 rounded-full blur-[1px] animate-particle-3" />
+                    <div className="absolute left-[85%] bottom-0 w-1 h-1 bg-[#D4AF37]/60 rounded-full blur-[1px] animate-particle-4" />
+                  </div>
                 </div>
+              </div>
+              
+              {/* Dark Gradient Overlay for Readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none"></div>
+              
+              {/* Decorative Icon */}
+              <div className="absolute top-0 right-0 p-8 opacity-[0.03] hidden sm:block pointer-events-none">
+                <svg width="200" height="200" viewBox="0 0 24 24" fill="#D4AF37"><path d="M17 5h-1V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v1H7c-1.1 0-2 .9-2 2v1l2 3h10l2-3V7c0-1.1-.9-2-2-2zM9 4h6v1H9V4zm11 8H4v7c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-7z"/></svg>
               </div>
               
               <div className="relative z-10 w-full">
